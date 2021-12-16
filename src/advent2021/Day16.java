@@ -29,14 +29,16 @@ public class Day16 {
 
 		long sum = 0;
 		for (int i = 0; i < bitString.length() ;) {
-			if(bitString.substring(i).chars().allMatch(e -> e == '0')) break;
+			if(bitString.substring(i).chars().allMatch(e -> e == '0')) {
+				break;
+			}
 			// version is first
-			int version = binToInt(bitString.substring(i, i+3));
+			int version = binToInt(bitString.substring(i, i + 3));
 			System.out.println("Found version: " + version);
 			sum = sum + version;
 
 			// type follows
-			int type = binToInt(bitString.substring(i+3, i+6));
+			int type = binToInt(bitString.substring(i + 3, i + 6));
 			System.out.println("Type is: " + type);
 			i = i + 6;
 
@@ -58,9 +60,9 @@ public class Day16 {
 				if( lengthInBitsMode) {
 					lengthType = 11;
 				}
-				
+
 				i = i + 1; // i was the mode bit
-				int subLength = binToInt(bitString.substring(i, i+lengthType)); 
+				int subLength = binToInt(bitString.substring(i, i + lengthType)); 
 				i = i + lengthType;
 
 				if(!lengthInBitsMode) {
@@ -74,7 +76,7 @@ public class Day16 {
 
 	}
 
-		private long solveAdventB() {
+	private long solveAdventB() {
 		return 1;
 	}
 
@@ -85,6 +87,5 @@ public class Day16 {
 	public static String hexToBinary(String hex) {
 		return new BigInteger(hex, 16).toString(2);
 	}
-
 
 }
