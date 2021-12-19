@@ -1,7 +1,6 @@
 package advent2021;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +27,7 @@ public class Day16 {
 	private long sumVersionNumbers(String bitString) {
 
 		long sum = 0;
-		for (int i = 0; i < bitString.length() ;) {
+		for (int i = 0; i < bitString.length() ; ) {
 			if(bitString.substring(i).chars().allMatch(e -> e == '0')) {
 				break;
 			}
