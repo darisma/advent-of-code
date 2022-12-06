@@ -179,6 +179,7 @@ public class Day15 {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void printPoints(Map<Coord, int[]> map) {
 		int countedMinX = map.entrySet().stream().mapToInt(e -> e.getKey().x).min().orElse(0);
 		int countedMinY = map.entrySet().stream().mapToInt(e -> e.getKey().y).min().orElse(0);
