@@ -16,8 +16,6 @@ public class Day5 {
 	static final List<String> INPUT_DATA = AIR.getStringStream(FILENAME)
 			.collect(Collectors.toList());
 
-	static final int ROW_LENGTH = INPUT_DATA.get(0).length();
-
 	public static void main (String[] args) {
 		System.out.println("Answer to A is: " + new Day5().solveAdventA());
 		System.out.println("Answer to B is: " + new Day5().solveAdventB());
