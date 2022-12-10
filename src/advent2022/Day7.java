@@ -97,9 +97,10 @@ public class Day7 {
 	}
 
 	private Long getSize(HashMap<String, ElfFile> elfFiles, Long size) {
+		
 		for(ElfFile e : elfFiles.values())
 		{
-			if(!e.directory) {
+			if( !e.directory ) {
 				size = size + e.fileSize;
 			}
 			else {
@@ -110,6 +111,7 @@ public class Day7 {
 	}
 
 	class ElfFile {
+		
 		ElfFile parent;
 		String name;
 		HashMap<String, ElfFile> content;
