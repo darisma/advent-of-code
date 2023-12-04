@@ -44,10 +44,7 @@ public class Day3 {
     private static int sumOfGearRatios(String s, int rowNumber) {
 		int result = 0;
 		
-		List<Integer> gears = getGearIndices(s);
-		System.out.println("Gears found from row " + rowNumber + " " + gears.toString());
-		
-		for(Integer gear: gears) {
+		for(Integer gear: getGearIndices(s)) {
 			result = result + getGearPoint(getPreviousLine(rowNumber), getNextLine(rowNumber), s, rowNumber, gear);
 		}
 		
@@ -93,8 +90,6 @@ public class Day3 {
 			return all.get(0) * all.get(1);
 		}
 		
-		System.out.println("returning 0 for gear: " + gear + " on row " + current);
-		
 		return 0;
 	}
 
@@ -109,7 +104,6 @@ public class Day3 {
 			while(endIndex < s.length()  && Character.isDigit(s.charAt(endIndex))) {				
 				endIndex = endIndex + 1;
 			}
-			//System.out.println("GetGearNumberList returning " + Integer.parseInt(s.substring(startIndex, endIndex)));
 			return Optional.of(Integer.parseInt(s.substring(startIndex, endIndex)));
 		}
 		return Optional.empty();
