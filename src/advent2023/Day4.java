@@ -17,37 +17,20 @@ public class Day4 {
     static List<String> gameData = ir.getStringStream(FILENAME).collect(Collectors.toList());
 
     public static void main (String[] args) {
-
         System.out.println("Answer to 1a is: " + solveAdvent1a());
         System.out.println("Answer to 1b is: " + solveAdvent1b());
     }
 
     private static int solveAdvent1a() {
-
-        int score = 0;
-
-        for(String s: gameData) {
-            score = score + countScoreForCard(s);
-        }
-
-        return score;
+        return countScoreForCards();
     }
 
-    private static int countScoreForCard(String s) {
-        Set<Integer> ownNumbers = getNumbers(s.substring(s.indexOf(":") + 1, s.indexOf("|")));
-        Set<Integer> winningNumbers = getNumbers(s.substring(s.indexOf("|") + 1));
-
-        int score = 0;
-        for (Integer ownNumber : ownNumbers) {
-            if(winningNumbers.contains(ownNumber)) {
-                if(score == 0) {
-                    score = 1;
-                }else {
-                    score = 2* score;
-                }
-            }
-        }
-        return score;
+    private static int solveAdvent1b() {
+        return countScratchCards();
+    }
+    
+    private static int countScoreForCards() {
+        return gameData.stream().map(e -> new Card(e)).mapToInt(card -> card.getScore()).sum();
     }
 
     private static Set<Integer> getNumbers(String numberString) {
@@ -59,12 +42,7 @@ public class Day4 {
         return numbers;
     }
 
-    private static int solveAdvent1b() {
-        return countScratchCards();
-    }
-
     private static int countScratchCards() {
-
         List<Card> cards = new ArrayList<>();
 
         for(String s : gameData) {
@@ -131,6 +109,20 @@ public class Day4 {
                 }
             }
             return matches;
+        }
+
+        public int getScore() {
+            int score = 0;
+            for (Integer ownNumber : ownNumbers) {
+                if(winningNumbers.contains(ownNumber)) {
+                    if(score == 0) {
+                        score = 1;
+                    }else {
+                        score = 2* score;
+                    }
+                }
+            }
+            return score;
         }
     }
 }
