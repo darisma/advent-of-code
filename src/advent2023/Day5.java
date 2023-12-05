@@ -24,6 +24,7 @@ public class Day5 {
 
     public static void main (String[] args) {
         System.out.println("Answer to 1a is: " + solveAdvent1a());
+        //System.out.println("Backward result. "+ solveAdvent1bagain());
         System.out.println("Answer to 1b is: " + solveAdvent1b());
     }
 
@@ -44,8 +45,7 @@ public class Day5 {
 
 
     private static long solveAdvent1b() {
-        //return getMoreSeedsToo();
-        return goBackwards();
+        return getMoreSeedsToo();
     }
 
     private static long solveAdvent1bagain() {
@@ -55,8 +55,18 @@ public class Day5 {
     private static long goBackwards() {
         Long magicNumber = 0L;
 
-        return getReverseMappedValue(getReverseMappedValue(getReverseMappedValue(getReverseMappedValue(getReverseMappedValue(getReverseMappedValue(
-                getReverseMappedValue(magicNumber, humidityToLocation), temperatureToHumidity), lightToTemperature), waterToLight), fertilizerToWater), soilToFertilizer), seedToSoil);
+        return getReverseMappedValue(
+        		getReverseMappedValue(
+        				getReverseMappedValue(
+        						getReverseMappedValue(
+        								getReverseMappedValue(
+        										getReverseMappedValue(
+        												getReverseMappedValue(magicNumber, humidityToLocation), temperatureToHumidity),
+        										lightToTemperature),
+        								waterToLight),
+        						fertilizerToWater),
+        				soilToFertilizer),
+        		seedToSoil);
         
     }
 
@@ -134,9 +144,12 @@ public class Day5 {
     private static Long getReverseMappedValue(Long destination, List<MapperRow> mappings) {
         for (MapperRow mapperRow : mappings) {
             if(mapperRow.mappingHit(destination)) {
-                return mapperRow.getReverseMapping(destination);
+                System.out.println("Heres your reverse number that HIT: " + mapperRow.getReverseMapping(destination));
+
+            	return mapperRow.getReverseMapping(destination);
             }
         }
+        System.out.println("Heres your reverse number: " + destination);
         return destination;
     }
     
