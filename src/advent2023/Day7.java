@@ -22,16 +22,17 @@ public class Day7 {
 	}
 
     private static long solveAdvent1a() {
-	    List<Hand> hands = gameData.stream().map(e -> new Hand(e)).collect(Collectors.toList());
+	    List<Hand> hands = gameData.stream().map(e -> new Hand(e, 1)).collect(Collectors.toList());
 		hands.sort(new HandComparator());
 		
 		return countWinnings(hands);
 	}
 
     private static long solveAdvent1b() {
-		long result = 1;
+        List<Hand> hands = gameData.stream().map(e -> new Hand(e, 2)).collect(Collectors.toList());
+        hands.sort(new HandComparator());
 
-		return result;
+		return countWinnings(hands);
 	}
 
     private static long countWinnings(List<Hand> hands) {
@@ -49,11 +50,18 @@ public class Day7 {
 	    Integer bid;
 	    Integer handType;
 	    Map<String, Integer> cardAmounts;
+	    int part;
 	    
-	    public Hand(String s) {
+	    public Hand(String s, int part) {
+	        this.part = part;
 	        hand = s.split(" ")[0];
 	        bid = Integer.parseInt(s.split(" ")[1]);
-            cardAmounts = countCardAmounts();
+            if(part == 1) {
+                cardAmounts = countCardAmounts();
+            }
+            if(part == 2) {
+                cardAmounts = countCardAmountsPart2();
+            }
 	        handType = getHandType(hand);
 	    }
 
@@ -99,6 +107,25 @@ public class Day7 {
             }
             return cards;
         }
+        
+        private Map<String, Integer> countCardAmountsPart2() {
+            Map<String, Integer> cards = new HashMap<>();
+            int jokerCount = 0;
+            for(int i = 0; i < hand.length(); i ++) {
+                String s = hand.substring(i, i + 1);
+                if(s.equalsIgnoreCase("J")) {
+                    jokerCount++;
+                }
+                if(cards.containsKey(s)) {
+                    cards.put(s, cards.get(s) + 1);
+                }else {
+                    cards.put(s,  1);
+                }
+            }
+            final int totalJoker = jokerCount;
+            cards.entrySet().stream().filter(e -> e.getKey() != "J").map(e -> e.setValue(e.getValue() + totalJoker));
+            return cards;
+        }
 
         @Override
         public String toString() {
@@ -137,10 +164,10 @@ public class Day7 {
                     if(s2.equalsIgnoreCase("Q")) {
                         return -1;
                     }
-                    if(s1.equalsIgnoreCase("J")) {
+                    if(hand1.part == 1 && s1.equalsIgnoreCase("J")) {
                         return 1;
                     }
-                    if(s2.equalsIgnoreCase("J")) {
+                    if(hand1.part == 1 && s2.equalsIgnoreCase("J")) {
                         return -1;
                     }
                     if(s1.equalsIgnoreCase("T")) {
@@ -149,6 +176,13 @@ public class Day7 {
                     if(s2.equalsIgnoreCase("T")) {
                         return -1;
                     }
+                    if(hand1.part == 2 && s1.equalsIgnoreCase("J")) {
+                        return -1;
+                    }
+                    if(hand1.part == 2 && s2.equalsIgnoreCase("J")) {
+                        return 1;
+                    }
+
                     return Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2));
 
                 }
