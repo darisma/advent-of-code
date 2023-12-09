@@ -1,5 +1,6 @@
 package advent2023;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,8 @@ public class Day7 {
         List<Hand> hands = gameData.stream().map(e -> new Hand(e, 2)).collect(Collectors.toList());
         hands.sort(new HandComparator());
 
+        System.out.println("jorma");
+        
 		return countWinnings(hands);
 	}
 
@@ -111,7 +114,7 @@ public class Day7 {
         private Map<String, Integer> countCardAmountsPart2() {
             Map<String, Integer> cards = new HashMap<>();
             int jokerCount = 0;
-            for(int i = 0; i < hand.length(); i ++) {
+            for(int i = 0; i < hand.length(); i++) {
                 String s = hand.substring(i, i + 1);
                 if(s.equalsIgnoreCase("J")) {
                     jokerCount++;
@@ -119,11 +122,19 @@ public class Day7 {
                 if(cards.containsKey(s)) {
                     cards.put(s, cards.get(s) + 1);
                 }else {
-                    cards.put(s,  1);
+                    cards.put(s, 1);
                 }
             }
             final int totalJoker = jokerCount;
-            cards.entrySet().stream().filter(e -> e.getKey() != "J").map(e -> e.setValue(e.getValue() + totalJoker));
+            if(totalJoker > 0) {
+            int maxValueInMap = (Collections.max(cards.values()));
+
+            List<String> maxEntryKeys = cards.entrySet().stream().filter(e -> e.getValue().intValue() == maxValueInMap).map(e -> e.getKey()).collect(Collectors.toList());
+            maxEntryKeys.sort(new maxEntryComparator());
+            maxEntryKeys = List.of(maxEntryKeys.get(maxEntryKeys.size() - 1));
+            cards.put(maxEntryKeys.get(0), maxValueInMap + totalJoker);
+            cards.getClass();
+            }
             return cards;
         }
 
@@ -132,6 +143,47 @@ public class Day7 {
             return "Hand [hand=" + hand + ", bid=" + bid + ", handType=" + handType + ", cardAmounts=" + cardAmounts
                     + "]";
         }
+	}
+	
+	static class maxEntryComparator implements Comparator<String>{
+
+		@Override
+		public int compare(String s1, String s2) {
+            if(s1.equalsIgnoreCase("A")) {
+                return 1;
+            }
+            if(s2.equalsIgnoreCase("A")) {
+                return -1;
+            }
+            if(s1.equalsIgnoreCase("K")) {
+                return 1;
+            }
+            if(s2.equalsIgnoreCase("K")) {
+                return -1;
+            }
+            if(s1.equalsIgnoreCase("Q")) {
+                return 1;
+            }
+            if(s2.equalsIgnoreCase("Q")) {
+                return -1;
+            }
+            if(s1.equalsIgnoreCase("T")) {
+                return 1;
+            }
+            if(s2.equalsIgnoreCase("T")) {
+                return -1;
+            }
+            if(s1.equalsIgnoreCase("J")) {
+                return -1;
+            }
+            if(s2.equalsIgnoreCase("J")) {
+                return 1;
+            }
+
+            return Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2));
+			
+		}
+		
 	}
 	
 	static class HandComparator implements Comparator<Hand>{
