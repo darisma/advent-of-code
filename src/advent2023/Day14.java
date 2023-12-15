@@ -9,12 +9,12 @@ import utils.AdventInputReader;
 public class Day14 {
 
     static AdventInputReader ir = new AdventInputReader();
-    static final String FILENAME = "2023input/day14.txt";
+    static final String FILENAME = "2023input/day14_test.txt";
 
     static List<String> INPUT_DATA = ir.getStringStream(FILENAME).collect(Collectors.toList());
 
     public static void main (String[] args) {
-        System.out.println("Answer to 1a is: " + solveAdvent1a());
+      //  System.out.println("Answer to 1a is: " + solveAdvent1a());
         System.out.println("Answer to 1b is: " + solveAdvent1b());
     }
 
@@ -27,23 +27,38 @@ public class Day14 {
     }
 
     private static long solveAdvent1b() {
-        List<String> transposed = transpose(INPUT_DATA);
-        List<String> cycleResult = cycle(transposed);
-
-        return scoreTilted(cycleResult, transposed.get(0).length());
+        List<String> transposed = transposeB(INPUT_DATA);
+        for(int i = 0; i < 1; i++) {
+               List<String> cycleResult = cycle(transposed);
+        }
+        System.out.println("teppo");
+        return 1;
      }
     
     private static List<String> cycle(List<String> transposed) {
         List<String> tilted = tilt(transposed);
-        tilted = transpose(tilted);
+        tilted = transposeB(tilted);
         tilted = tilt(tilted);
-        tilted = transpose(tilted);
+        tilted = transposeB(tilted);
         tilted = tilt(tilted);
-        tilted = transpose(tilted);
+        tilted = transposeB(tilted);
         tilted = tilt(tilted);
         return tilted;
     }
 
+    private static List<String> transposeB(List<String> data) {
+        List<String> transposed = new ArrayList<>();
+        // transpose
+        for(int i = INPUT_DATA.get(0).length() - 1; i >= 0; i--) {
+            StringBuilder sb = new StringBuilder();
+            for(int j = INPUT_DATA.size() - 1; j >= 0; j--) {
+                sb.append(INPUT_DATA.get(j).charAt(i));
+            }
+            transposed.add(sb.toString());
+        }
+        return transposed;
+    }
+    
     private static List<String> transpose(List<String> data) {
         List<String> transposed = new ArrayList<>();
         // transpose
