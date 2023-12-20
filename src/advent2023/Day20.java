@@ -8,7 +8,7 @@ import utils.AdventInputReader;
 public class Day20 {
 
     static AdventInputReader ir = new AdventInputReader();
-    static final String FILENAME = "2023input/day16_test.txt";
+    static final String FILENAME = "2023input/day20_test.txt";
 
     static List<String> INPUT_DATA = ir.getStringStream(FILENAME).collect(Collectors.toList());
 
@@ -18,11 +18,34 @@ public class Day20 {
     }
 
     private static long solveAdvent1a() {
-    	return 1;
+    	// build list of modules 
+        // add button module
+        // update modules with inputs
+        
+        return 0;
     }
 
     private static long solveAdvent1b() {
     	return 0;
     }
 
+    static class Module{
+        String name;
+        List<Module> destinations;
+        List<Module> inputs;
+        ModuleType type;
+        boolean running;
+        
+        public Module(String s) {
+            
+        }
+    }
+    
+    enum Pulse{
+        LOW, HIGH
+    }
+    
+    enum ModuleType{
+        FLIPFLOP, CONJUNCTION, BROADCAST, BUTTON
+    }
 }

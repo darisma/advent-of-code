@@ -2,8 +2,10 @@ package advent2023;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import utils.AdventInputReader;
@@ -17,7 +19,7 @@ public class Day19 {
 
     static HashMap<String, Workflow> WORKFLOWS = new HashMap<>();
     static List<Part> PARTS = new ArrayList<>();
-
+    
     public static void main (String[] args) {
         System.out.println("Answer to 1a is: " + solveAdvent1a());
         System.out.println("Answer to 1b is: " + solveAdvent1b());
@@ -49,13 +51,37 @@ public class Day19 {
     private static long solveAdvent1b() {
         int result = 0;
         
+        List<Workflow> workflows = new ArrayList<>();
+        Set<Integer> xTresh = new HashSet<>();
+        Set<Integer> mTresh = new HashSet<>();
+        Set<Integer> aTresh = new HashSet<>();
+        Set<Integer> sTresh = new HashSet<>();
+        
+        
         for(String s: INPUT_DATA) {
             if(s.length() > 0 && s.charAt(0) != '{') {
                 Workflow wf = new Workflow(s);
-                WORKFLOWS.put(wf.name, wf);
+                for(Rule r: wf.rules) {
+                    if(r.variableName.equalsIgnoreCase("x")) {
+                        xTresh.add(r.value);
+                    }
+                    if(r.variableName.equalsIgnoreCase("m")) {
+                        mTresh.add(r.value);
+                    }
+                    if(r.variableName.equalsIgnoreCase("a")) {
+                        aTresh.add(r.value);
+                    }
+                    if(r.variableName.equalsIgnoreCase("s")) {
+                        sTresh.add(r.value);
+                    }
+
+                }
+                workflows.add(wf);
             }
-       }
-         return result;
+        }
+        
+        return result;
+         
     }
 
     static class Workflow{
