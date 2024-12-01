@@ -12,16 +12,15 @@ public class Day1 {
 	static AdventInputReader ir = new AdventInputReader();
 	static final String FILENAME = "2024input/day1.txt";
 
-	static List<String> locationData = ir.getStringStream(FILENAME).collect(Collectors.toList());
-	static List<Integer> leftList = locationData.stream().map(e -> Integer.parseInt(e.substring(0, e.indexOf(" "))))
-			.sorted().collect(Collectors.toList());
-	static List<Integer> rightList = locationData.stream().map(e -> Integer.parseInt(e.substring(e.indexOf("   ") + 3)))
-			.sorted().collect(Collectors.toList());
+	static final List<String> locationData = ir.getStringStream(FILENAME).collect(Collectors.toList());
+	static final List<Integer> leftList = locationData.stream()
+			.map(e -> Integer.parseInt(e.substring(0, e.indexOf(" ")))).sorted().collect(Collectors.toList());
+	static final List<Integer> rightList = locationData.stream()
+			.map(e -> Integer.parseInt(e.substring(e.indexOf("   ") + 3))).sorted().collect(Collectors.toList());
 
 	static HashMap<String, String> mappings = new HashMap<String, String>();
 
 	public static void main(String[] args) {
-
 		System.out.println("Answer to 1a is: " + solveAdvent1a());
 		System.out.println("Answer to 1b is: " + solveAdvent1b());
 	}
@@ -30,7 +29,7 @@ public class Day1 {
 		int result = 0;
 
 		for (int i = 0; i < leftList.size(); i++) {
-			result = result + Math.abs(leftList.get(i) - rightList.get(i));
+			result += Math.abs(leftList.get(i) - rightList.get(i));
 		}
 
 		return result;
@@ -42,9 +41,12 @@ public class Day1 {
 		result = leftList.stream().map(left -> left * Collections.frequency(rightList, left))
 				.collect(Collectors.summingInt(Integer::intValue));
 
+		result = leftList.stream().map(left -> left * Collections.frequency(rightList, left)).reduce(0,
+				(a, b) -> a + b);
+
 //        for (int i = 0; i < leftList.size(); i ++) {
 //        	Integer left = leftList.get(i);
-//        	result = result + left * rightList.stream().filter(e -> e.equals(left)).count();
+//        	result += left * rightList.stream().filter(e -> e.equals(left)).count();
 //        }
 
 		return result;
