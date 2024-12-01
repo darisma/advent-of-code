@@ -1,5 +1,6 @@
 package advent2024;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,8 +39,8 @@ public class Day1 {
 	private static long solveAdvent1b() {
 		long result = 0;
 
-		result = leftList.stream().map(left -> left * rightList.stream().filter(e -> e.equals(left)).count())
-				.collect(Collectors.summingLong(Long::longValue));
+		result = leftList.stream().map(left -> left * Collections.frequency(rightList, left))
+				.collect(Collectors.summingInt(Integer::intValue));
 
 //        for (int i = 0; i < leftList.size(); i ++) {
 //        	Integer left = leftList.get(i);
