@@ -41,14 +41,6 @@ public class Day1 {
 		result = leftList.stream().map(left -> left * Collections.frequency(rightList, left))
 				.collect(Collectors.summingInt(Integer::intValue));
 
-		result = leftList.stream().map(left -> left * Collections.frequency(rightList, left)).reduce(0,
-				(a, b) -> a + b);
-
-//        for (int i = 0; i < leftList.size(); i ++) {
-//        	Integer left = leftList.get(i);
-//        	result += left * rightList.stream().filter(e -> e.equals(left)).count();
-//        }
-
 		return result;
 	}
 }
