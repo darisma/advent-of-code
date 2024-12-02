@@ -1,6 +1,7 @@
 package advent2024;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,13 +70,8 @@ public class Day2 {
         List<List<Integer>> numberList = new ArrayList<>();
 
         for (String safetyString : safetyData) {
-            List<Integer> reportNumbers = new ArrayList<>();
-            String[] reports = safetyString.split(" ");
-
-            for(int i = 0; i < reports.length; i++) {
-                reportNumbers.add(Integer.parseInt(reports[i]));
-            }
-            numberList.add(reportNumbers);
+            List<Integer> report = Arrays.stream(safetyString.split(" ")).mapToInt(c -> Integer.parseInt(c)).boxed().collect(Collectors.toList());
+            numberList.add(report);
         }
 
         return numberList;
