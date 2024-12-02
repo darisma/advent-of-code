@@ -1,7 +1,6 @@
 package advent2024;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,8 +16,6 @@ public class Day1 {
 			.map(e -> Integer.parseInt(e.substring(0, e.indexOf(" ")))).sorted().collect(Collectors.toList());
 	static final List<Integer> rightList = locationData.stream()
 			.map(e -> Integer.parseInt(e.substring(e.indexOf("   ") + 3))).sorted().collect(Collectors.toList());
-
-	static HashMap<String, String> mappings = new HashMap<String, String>();
 
 	public static void main(String[] args) {
 		System.out.println("Answer to 1a is: " + solveAdvent1a());
