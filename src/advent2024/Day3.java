@@ -54,7 +54,6 @@ public class Day3 {
         return result;
     }
 
-
     private static long doMultiplication(String multiplicationContent) {
         return Math.multiplyFull(Integer.parseInt(multiplicationContent.split(",")[0]), Integer.parseInt(multiplicationContent.split(",")[1]));
     }
